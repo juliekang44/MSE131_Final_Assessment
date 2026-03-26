@@ -1,4 +1,4 @@
-# MSE131_Final_Assessment: Waterloo Engineering Microwave Queue Simulation
+# MSE131_Final_Assessment: Waterloo Engineering Building Microwave Queue Simulation
 
 This project models microwave waiting lines across University of Waterloo engineering buildings.
 
