@@ -7,7 +7,7 @@ pip install -r requirements.txt
 python microwave_model/experiments.py
 
 3. Run sensitivity analysis
-python src/sensitivity.py
+python microwave_model/sensitivity.py
 
 Outputs
 results/scenario_results.csv
