@@ -1,15 +1,26 @@
+# simulation.py
+# Core simulation logic for microwave queues
+
 import numpy as np
 from parameters import *
 
-np.random.seed(None)  # remove fixed seed for full randomness
+# Set random seed
+np.random.seed(RANDOM_SEED)
 
 def arrival_rate(t):
-    # lunch rush between 11:30 and 2
-    if 210 <= t <= 360:
+    """
+    Return arrival rate (students per minute) at time t (minutes from 8am).
+    Includes lunch rush multiplier between 11:30am-2pm.
+    """
+    if 210 <= t <= 360:  # lunch rush
         return ARRIVAL_RATE_BASE * LUNCH_MULTIPLIER
     return ARRIVAL_RATE_BASE
 
 def simulate_building(servers, sim_time=SIM_TIME):
+    """
+    Simulate one building with 'servers' microwaves.
+    Returns performance metrics and queue history for plotting.
+    """
     t = 0
     server_free = np.zeros(servers)
 
@@ -19,31 +30,27 @@ def simulate_building(servers, sim_time=SIM_TIME):
     served = 0
     balked = 0
 
-    # Track queue length over time
     times = []
     queue_lengths = []
 
-    queue = 0  # current queue length
-
     while t < sim_time:
         lam = arrival_rate(t)
-        t += np.random.exponential(1 / lam)
-        service = np.random.exponential(1 / SERVICE_RATE)
+        t += np.random.exponential(1 / lam)  # stochastic arrival
+        service = np.random.exponential(1 / SERVICE_RATE)  # stochastic service
 
-        # Choose earliest free server
-        i = np.argmin(server_free)
+        i = np.argmin(server_free)  # next available microwave
         start = max(t, server_free[i])
         wait = start - t
 
-        # Balking
+        # Balking: leave if queue too long
         if wait > QUEUE_LIMIT:
             balked += 1
             continue
 
         flow = wait + service
 
-        # update queue length
-        queue = sum(server_free > t)  # servers busy at current time
+        # Queue length = number of busy servers at current time
+        queue = sum(server_free > t)
         times.append(t)
         queue_lengths.append(queue)
 
@@ -55,20 +62,16 @@ def simulate_building(servers, sim_time=SIM_TIME):
         served += 1
 
     if served == 0:
-        served = 1
+        served = 1  # avoid division by zero
 
     Wq = np.mean(wait_times)
     W = np.mean(flow_times)
-    Lq = ARRIVAL_RATE_BASE * Wq
-    L = ARRIVAL_RATE_BASE * W
     utilization = busy_time / (sim_time * servers)
     throughput = served / sim_time
 
     return {
         "Wq": Wq,
         "W": W,
-        "Lq": Lq,
-        "L": L,
         "utilization": utilization,
         "throughput": throughput,
         "served": served,
@@ -78,6 +81,10 @@ def simulate_building(servers, sim_time=SIM_TIME):
     }
 
 def run_simulation():
+    """
+    Run the simulation for all buildings.
+    Returns system-wide and per-building metrics.
+    """
     results = {}
     for building, servers in MICROWAVES.items():
         results[building] = simulate_building(servers)
