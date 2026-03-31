@@ -4,19 +4,13 @@ This document explains how to **install dependencies, run simulations, perform s
 
 ---
 
-## 1. Install Dependencies
-
-Install the required Python packages:
-
 ```bash
+## 1. Install Dependencies
+Install the required Python packages:
 pip install -r requirements.txt
 
 ## 2. Run Main Simulation
-
-```bash
 python experiments.py
 
 ## 3. Run Sensitivity Analysis
-
-```bash
 python sensitivity.py
