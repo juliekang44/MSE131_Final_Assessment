@@ -1,0 +1,52 @@
+Microwave Simulation - Full-Day
+==================================================
+Bottleneck building: E5
+
+QNC:
+  Avg Wait: 0.82 min
+  Avg Flow: 2.88 min
+  Utilization: 0.29
+  Throughput: 0.14 cust/min
+  Peak Queue: 1
+  Balked: 0
+
+CPH:
+  Avg Wait: 0.01 min
+  Avg Flow: 2.03 min
+  Utilization: 0.09
+  Throughput: 0.17 cust/min
+  Peak Queue: 4
+  Balked: 0
+
+DWE:
+  Avg Wait: 0.04 min
+  Avg Flow: 1.94 min
+  Utilization: 0.18
+  Throughput: 0.19 cust/min
+  Peak Queue: 2
+  Balked: 0
+
+E5:
+  Avg Wait: 0.71 min
+  Avg Flow: 2.59 min
+  Utilization: 0.31
+  Throughput: 0.17 cust/min
+  Peak Queue: 1
+  Balked: 0
+
+E6:
+  Avg Wait: 0.03 min
+  Avg Flow: 2.13 min
+  Utilization: 0.16
+  Throughput: 0.15 cust/min
+  Peak Queue: 2
+  Balked: 0
+
+E7:
+  Avg Wait: 0.00 min
+  Avg Flow: 1.67 min
+  Utilization: 0.08
+  Throughput: 0.15 cust/min
+  Peak Queue: 2
+  Balked: 0
+

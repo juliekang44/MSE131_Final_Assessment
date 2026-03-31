@@ -10,7 +10,7 @@ Install the required Python packages:
 pip install -r requirements.txt
 
 ## 2. Run Main Simulation
-python experiments.py
+python microwave_model/experiments.py
 
 ## 3. Run Sensitivity Analysis
-python sensitivity.py
+python microwave_model/sensitivity.py

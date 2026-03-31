@@ -1,0 +1,42 @@
+Microwave Simulation Sensitivity Analysis
+==================================================
+
+### Varying Arrival Rate (ARRIVAL_RATE_BASE)
+Arrival Rate: 0.08 students/min
+Average wait: 0.42 min
+Average flow: 2.33 min
+Utilization: 0.17
+Bottleneck: E5
+------------------------------
+Arrival Rate: 0.12 students/min
+Average wait: 0.38 min
+Average flow: 2.37 min
+Utilization: 0.19
+Bottleneck: QNC
+------------------------------
+Arrival Rate: 0.16 students/min
+Average wait: 0.37 min
+Average flow: 2.41 min
+Utilization: 0.20
+Bottleneck: E5
+------------------------------
+
+### Varying Service Rate (SERVICE_RATE)
+Service Rate: 0.33 per min (mean 3.00 min)
+Average wait: 0.29 min
+Average flow: 2.31 min
+Utilization: 0.18
+Bottleneck: QNC
+------------------------------
+Service Rate: 0.50 per min (mean 2.00 min)
+Average wait: 0.32 min
+Average flow: 2.27 min
+Utilization: 0.18
+Bottleneck: QNC
+------------------------------
+Service Rate: 0.67 per min (mean 1.50 min)
+Average wait: 0.41 min
+Average flow: 2.29 min
+Utilization: 0.18
+Bottleneck: E5
+------------------------------
