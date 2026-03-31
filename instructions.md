@@ -6,9 +6,6 @@ pip install -r requirements.txt
 2. Run scenario comparison
 python microwave_model/experiments.py
 
-3. Run sensitivity analysis
-python microwave_model/sensitivity.py
-
 
 Interpretation
 Look for:
