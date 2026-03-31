@@ -65,4 +65,4 @@ This project simulates microwave usage across University of Waterloo Engineering
 
 - TXT reports per scenario  
 - Queue vs hour plots (`PNG`)  
-- Utilization bar charts highlighting bottlenecks  
+- Utilization bar charts highlighting bottlenecks
