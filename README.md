@@ -24,9 +24,24 @@ Model Features
 - Variable heating times
 - Sensitivity analysis
 
-Performance Measures
-- Average waiting time
-- Average queue length
-- Utilization
-- Customers served
+Assumptions
+- Poisson arrivals
+- Exponential service times
+- FCFS discipline
+- Lunch demand spike
+- Students may balk when queue too long
 
+Performance Measures
+Wq: average waiting time
+W: average flow time
+Lq: average queue length
+L: average number in system
+ρ: utilization
+Throughput: customers served
+
+
+Run baseline experiments:
+python microwave_model/experiments.py
+
+Run sensitivity analysis:
+python microwave_model/sensitivity.py
