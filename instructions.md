@@ -1,15 +1,22 @@
-# Instructions
+# UW Engineering Microwave Queue Simulation - Instructions
 
-1. Install dependencies
+This document explains how to **install dependencies, run simulations, perform sensitivity analysis, and interpret results** for the UW Engineering Microwave Queue project.
+
+---
+
+## 1. Install Dependencies
+
+Install the required Python packages:
+
+```bash
 pip install -r requirements.txt
 
-2. Run scenario comparison
-python microwave_model/experiments.py
+## 2. Run Main Simulation
 
+```bash
+python experiments.py
 
-Interpretation
-Look for:
-- highest utilization (bottleneck)
-- longest waiting time
-- effect of added microwave
-- nonlinear growth of wait time
+## 3. Run Sensitivity Analysis
+
+```bash
+python sensitivity.py
