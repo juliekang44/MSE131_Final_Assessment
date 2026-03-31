@@ -1,15 +1,13 @@
-# parameters.py
-# Simulation parameters for UW Engineering Microwave Queue Simulation
-
 import numpy as np
 
-# Random seed for reproducibility (None = true randomness per run)
-RANDOM_SEED = None
+# Optional random seed (comment out for stochastic Monte Carlo runs)
+RANDOM_SEED = 42
+np.random.seed(RANDOM_SEED)
 
-# Total simulation time in minutes (12 hours: 8am–8pm)
+# Simulation time in minutes (8am–8pm)
 SIM_TIME = 12 * 60  # 720 minutes
 
-# Microwaves per building
+# Microwave servers per building
 MICROWAVES = {
     "QNC": 1,
     "CPH": 4,
@@ -19,14 +17,25 @@ MICROWAVES = {
     "E7": 3
 }
 
-# Base arrival rate of students (students per minute)
+# Redirected demand for buildings without microwaves
+REDIRECTED = {
+    "RCH": "E7",
+    "E2": "CPH",
+    "E3": "CPH"
+}
+
+# Base arrival rate (students/min)
 ARRIVAL_RATE_BASE = 0.12
 
-# Lunch rush multiplier (increases arrivals during 11:30am–2pm)
+# Rush-hour multiplier (11:30am–2pm)
 LUNCH_MULTIPLIER = 2.5
 
-# Service rate: 1 / mean service time (mean = 2 minutes)
-SERVICE_RATE = 1/2
+# Service rate: mean service time = 2 min → lambda = 1/2
+SERVICE_RATE = 1/2  # per minute
 
-# Maximum queue length before students leave (balking threshold)
+# Maximum queue length before balking
 QUEUE_LIMIT = 8
+
+# Customer types: Normal (90%) or Large Order (10%), large orders take 1.5x service time
+CUSTOMER_TYPE_PROBS = [0.9, 0.1]
+CUSTOMER_SERVICE_MULT = [1.0, 1.5]

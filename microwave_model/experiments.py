@@ -1,87 +1,55 @@
-# experiments.py
-# Runs simulations, generates TXT reports, and creates plots
-
 import os
-import matplotlib.pyplot as plt
 from datetime import datetime
-from simulation import run_simulation
+from simulation import run_system, plot_queue_time_series, plot_utilization_bars
+from parameters import MICROWAVES, SIM_TIME
+
+OUTPUT_DIR = "results"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 TIME_WINDOWS = {
-    "off-peak": (0, 210),  # 8:00am–11:30am
-    "peak": (210, 360),    # 11:30am–2:00pm
-    "full-day": (0, 720)   # 8:00am–8:00pm
+    "1": ("Off-Peak (8am–11:30am)", 0, 210),
+    "2": ("Peak Hours (11:30am–2pm)", 210, 360),
+    "3": ("Full Day (8am–8pm)", 0, SIM_TIME)
 }
 
-def choose_time_window():
-    """
-    Ask the user to select the time window to simulate.
-    """
+def select_time_window():
     print("Select simulation time window:")
     print("1: Off-Peak (8am–11:30am)")
     print("2: Peak Hours (11:30am–2pm)")
     print("3: Full Day (8am–8pm)")
-    choice = input("Enter 1, 2, or 3: ").strip()
-    if choice == "1":
-        return TIME_WINDOWS["off-peak"], "Off-Peak"
-    elif choice == "2":
-        return TIME_WINDOWS["peak"], "Peak-Hours"
-    else:
-        return TIME_WINDOWS["full-day"], "Full-Day"
 
-def run_simulation_with_plot(time_window, time_label):
-    """
-    Run the simulation and generate:
-    - TXT report
-    - Queue length plot
-    - Utilization bar chart
-    """
-    os.makedirs("results", exist_ok=True)
-    results = run_simulation()
+    while True:
+        choice = input("Enter 1, 2, or 3: ").strip()
+        if choice in TIME_WINDOWS:
+            desc, start_min, end_min = TIME_WINDOWS[choice]
+            print(f"\nRunning simulation for: {desc} ({start_min}-{end_min} minutes)\n")
+            return desc, start_min, end_min
+        else:
+            print("Invalid input. Please enter 1, 2, or 3.")
 
+def save_results_txt(results, sim_desc):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    file_path = os.path.join(OUTPUT_DIR, f"microwave_results_{timestamp}.txt")
+    with open(file_path, "w") as f:
+        f.write(f"UW Engineering Microwave Queue Simulation - {sim_desc}\n")
+        f.write("="*60 + "\n\n")
+        for building, metrics in results.items():
+            f.write(f"Building: {building}\n")
+            f.write(f" - Average Wait Time (Wq): {metrics['Wq']:.2f} min\n")
+            f.write(f" - Average Flow Time (W): {metrics['W']:.2f} min\n")
+            f.write(f" - Utilization: {metrics['utilization']:.2f}\n")
+            f.write(f" - Throughput (served): {metrics['served']}\n")
+            f.write(f" - Peak Queue Length: {metrics['peak_queue']}\n")
+            f.write(f" - Students Balked: {metrics['balked']}\n\n")
+        f.write("="*60 + "\n")
+    print(f"Results saved to {file_path}")
 
-    # Queue length plot
-    plt.figure(figsize=(12,6))
-    for b, r in results["buildings"].items():
-        plt.plot(r["times"], r["queue_lengths"], label=b)
-    plt.title(f"Queue Length Over Time ({time_label})")
-    plt.xlabel("Time (minutes from 8am)")
-    plt.ylabel("Queue Length")
-    plt.legend()
-    plt.grid(True)
-    plt.savefig(f"results/microwave_queue_{timestamp}.png")
-    plt.close()
-
-    # Utilization plot with bottleneck highlighted
-    plt.figure(figsize=(10,5))
-    buildings = list(results["buildings"].keys())
-    utils = [r["utilization"] for r in results["buildings"].values()]
-    colors = ['red' if b==results['bottleneck'] else 'green' for b in buildings]
-    plt.bar(buildings, utils, color=colors)
-    plt.title(f"Microwave Utilization by Building ({time_label})")
-    plt.ylabel("Utilization")
-    plt.ylim(0,1)
-    plt.grid(axis='y')
-    plt.savefig(f"results/microwave_utilization_{timestamp}.png")
-    plt.close()
-
-    # Save TXT report
-    with open(f"results/microwave_results_{timestamp}.txt", "w") as f:
-        f.write(f"Microwave Simulation - {time_label}\n")
-        f.write("="*50 + "\n")
-        f.write(f"Bottleneck building: {results['bottleneck']}\n\n")
-        for b,r in results["buildings"].items():
-            f.write(f"{b}:\n")
-            f.write(f"  Avg Wait: {r['Wq']:.2f} min\n")
-            f.write(f"  Avg Flow: {r['W']:.2f} min\n")
-            f.write(f"  Utilization: {r['utilization']:.2f}\n")
-            f.write(f"  Throughput: {r['throughput']:.2f} cust/min\n")
-            f.write(f"  Peak Queue: {max(r['queue_lengths'])}\n")
-            f.write(f"  Balked: {r['balked']}\n\n")
-
-    print("Simulation complete! Files saved in results/")
-    print(f"TXT, Queue plot, and Utilization plot generated with timestamp {timestamp}")
+def main():
+    sim_desc, start_min, end_min = select_time_window()
+    results = run_system(MICROWAVES, sim_start=start_min, sim_end=end_min)
+    save_results_txt(results, sim_desc)
+    plot_queue_time_series(results, sim_desc=sim_desc)
+    plot_utilization_bars(results, sim_desc=sim_desc)
 
 if __name__ == "__main__":
-    time_window, time_label = choose_time_window()
-    run_simulation_with_plot(time_window, time_label)
+    main()

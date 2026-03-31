@@ -1,63 +1,73 @@
-# sensitivity.py
-# Sensitivity analysis for UW Engineering microwave simulation
-
 import os
-from simulation import run_simulation
-from parameters import ARRIVAL_RATE_BASE, SERVICE_RATE
+from datetime import datetime
+from simulation import run_system, plot_queue_time_series, plot_utilization_bars
+from parameters import MICROWAVES
 
-OUTPUT_FOLDER = "results"
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+OUTPUT_DIR = "results"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# Predefined options
+ARRIVAL_RATES = [0.08, 0.12, 0.16]  # students per minute
+SERVICE_RATES = [1/3, 1/2, 1/1.5]   # mean service times: 3 min, 2 min, 1.5 min
+
+def select_option(prompt, options):
+    """Prompt user to select an option; repeat until valid."""
+    while True:
+        print(prompt)
+        for i, val in enumerate(options, start=1):
+            if "SERVICE" in prompt.upper():
+                print(f"{i}: {val:.3f} per minute (mean service {1/val:.1f} min)")
+            else:
+                print(f"{i}: {val:.2f} students per minute")
+        choice = input("Enter the number corresponding to your choice: ").strip()
+        if choice.isdigit() and 1 <= int(choice) <= len(options):
+            return options[int(choice)-1]
+        else:
+            print(f"Invalid input. Please enter a number between 1 and {len(options)}.\n")
+
+def save_results_txt(results, arrival_rate, service_rate):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    file_path = os.path.join(
+        OUTPUT_DIR, f"sensitivity_arrival_{arrival_rate}_service_{service_rate}_{timestamp}.txt"
+    )
+    with open(file_path, "w") as f:
+        f.write(f"Sensitivity Analysis - Arrival Rate: {arrival_rate}, Service Rate: {service_rate}\n")
+        f.write("="*60 + "\n\n")
+        for building, metrics in results.items():
+            f.write(f"Building: {building}\n")
+            f.write(f" - Average Wait Time (Wq): {metrics['Wq']:.2f} min\n")
+            f.write(f" - Average Flow Time (W): {metrics['W']:.2f} min\n")
+            f.write(f" - Utilization: {metrics['utilization']:.2f}\n")
+            f.write(f" - Throughput (served): {metrics['served']}\n")
+            f.write(f" - Peak Queue Length: {metrics['peak_queue']}\n")
+            f.write(f" - Students Balked: {metrics['balked']}\n\n")
+        f.write("="*60 + "\n")
+    print(f"\nResults saved to {file_path}\n")
 
 def run_sensitivity():
-    """
-    Runs sensitivity analysis by varying ARRIVAL_RATE_BASE and SERVICE_RATE
-    and outputs TXT reports comparing system performance.
-    """
-    arrival_rates = [0.08, 0.12, 0.16]  # students per minute (low, medium, high)
-    service_rates = [1/3, 1/2, 1/1.5]  # mean service times 3, 2, 1.5 min
-
-    with open(f"{OUTPUT_FOLDER}/sensitivity_results.txt", "w") as f:
-        f.write("Microwave Simulation Sensitivity Analysis\n")
-        f.write("="*50 + "\n\n")
-
-        # Vary arrival rate
-        f.write("### Varying Arrival Rate (ARRIVAL_RATE_BASE)\n")
-        for rate in arrival_rates:
-            # Temporarily override global parameter
-            from parameters import ARRIVAL_RATE_BASE as original_rate
-            import parameters
-            parameters.ARRIVAL_RATE_BASE = rate
-
-            results = run_simulation()
-            f.write(f"Arrival Rate: {rate:.2f} students/min\n")
-            f.write(f"Average wait: {results['avg_wait']:.2f} min\n")
-            f.write(f"Average flow: {results['avg_flow']:.2f} min\n")
-            f.write(f"Utilization: {results['utilization']:.2f}\n")
-            f.write(f"Bottleneck: {results['bottleneck']}\n")
-            f.write("-"*30 + "\n")
-
-            # Reset to original
-            parameters.ARRIVAL_RATE_BASE = original_rate
-
-        # Vary service rate
-        f.write("\n### Varying Service Rate (SERVICE_RATE)\n")
-        for rate in service_rates:
-            from parameters import SERVICE_RATE as original_service
-            import parameters
-            parameters.SERVICE_RATE = rate
-
-            results = run_simulation()
-            f.write(f"Service Rate: {rate:.2f} per min (mean {1/rate:.2f} min)\n")
-            f.write(f"Average wait: {results['avg_wait']:.2f} min\n")
-            f.write(f"Average flow: {results['avg_flow']:.2f} min\n")
-            f.write(f"Utilization: {results['utilization']:.2f}\n")
-            f.write(f"Bottleneck: {results['bottleneck']}\n")
-            f.write("-"*30 + "\n")
-
-            # Reset to original
-            parameters.SERVICE_RATE = original_service
-
-    print(f"Sensitivity analysis complete. See {OUTPUT_FOLDER}/sensitivity_results.txt")
+    print("=== Sensitivity Analysis - Interactive ===\n")
+    
+    # User selects arrival rate
+    arrival_rate = select_option("Select an arrival rate (students per minute):", ARRIVAL_RATES)
+    
+    # User selects service rate
+    service_rate = select_option("Select a service rate (per minute, mean service = 1 / rate minutes):", SERVICE_RATES)
+    
+    print(f"\nRunning simulation for arrival rate = {arrival_rate}, service rate = {service_rate}...\n")
+    
+    # Run the simulation only for chosen parameters
+    results = run_system(MICROWAVES, arrival_rate_override=arrival_rate, service_rate_override=service_rate)
+    
+    # Save results
+    save_results_txt(results, arrival_rate, service_rate)
+    
+    # Plot queue vs time
+    plot_queue_time_series(results, sim_desc=f"Arrival {arrival_rate}, Service {service_rate}")
+    
+    # Plot utilization
+    plot_utilization_bars(results, sim_desc=f"Arrival {arrival_rate}, Service {service_rate}")
+    
+    print("Simulation complete. Plots saved in results/ folder.\n")
 
 if __name__ == "__main__":
     run_sensitivity()
