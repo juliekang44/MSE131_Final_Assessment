@@ -1,38 +1,42 @@
-import pandas as pd
-from simulation import run_system
-from parameters import MICROWAVES
+import os
+from simulation import run_simulation
 
-def run():
-    scenarios = {
-        "Baseline": MICROWAVES,
-        "Add_E7": {**MICROWAVES, "E7": MICROWAVES["E7"] + 1},
-        "Add_E5": {**MICROWAVES, "E5": MICROWAVES["E5"] + 1}
-    }
+OUTPUT_FILE = "results/microwave_results.txt"
 
-    rows = []
 
-    for name, config in scenarios.items():
-        results = run_system(config)
+def run_baseline():
 
-        for b, r in results.items():
-            rows.append({
-                "scenario": name,
-                "building": b,
-                **r
-            })
+    os.makedirs("results", exist_ok=True)
 
-    df = pd.DataFrame(rows)
+    results = run_simulation()
 
-    # identify bottleneck
-    bottleneck = df.loc[df["utilization"].idxmax()]
+    with open(OUTPUT_FILE, "w") as f:
 
-    print("\n=== Bottleneck ===")
-    print(bottleneck)
+        f.write("University of Waterloo Engineering Microwave Simulation\n")
+        f.write("=" * 60 + "\n\n")
 
-    print("\n=== Full Results ===")
-    print(df)
+        f.write("BASELINE RESULTS\n")
+        f.write("-" * 40 + "\n")
 
-    df.to_csv("results/scenario_results.csv", index=False)
+        f.write(f"Average wait time: {results['avg_wait']:.2f} minutes\n")
+        f.write(f"Average flow time: {results['avg_flow']:.2f} minutes\n")
+        f.write(f"Average utilization: {results['utilization']:.2f}\n")
+        f.write(f"Bottleneck building: {results['bottleneck']}\n\n")
+
+        f.write("BUILDING RESULTS\n")
+        f.write("-" * 40 + "\n")
+
+        for b, r in results["buildings"].items():
+            f.write(f"\n{b}\n")
+            f.write(f"  Wait time (Wq): {r['Wq']:.2f}\n")
+            f.write(f"  Flow time (W): {r['W']:.2f}\n")
+            f.write(f"  Queue length (Lq): {r['Lq']:.2f}\n")
+            f.write(f"  In system (L): {r['L']:.2f}\n")
+            f.write(f"  Utilization: {r['utilization']:.2f}\n")
+            f.write(f"  Throughput: {r['throughput']:.3f}\n")
+            f.write(f"  Served: {r['served']}\n")
+            f.write(f"  Balked: {r['balked']}\n")
+
 
 if __name__ == "__main__":
-    run()
+    run_baseline()

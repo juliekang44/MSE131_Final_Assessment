@@ -2,8 +2,10 @@ import numpy as np
 
 RANDOM_SEED = 42
 
-SIM_TIME = 12 * 60  # minutes (8am–8pm)
+# simulation time (8am–8pm)
+SIM_TIME = 12 * 60
 
+# microwaves per building
 MICROWAVES = {
     "QNC": 1,
     "CPH": 4,
@@ -13,9 +15,12 @@ MICROWAVES = {
     "E7": 3
 }
 
-ARRIVAL_RATE_BASE = 0.12  # students per minute
+# arrivals per minute
+ARRIVAL_RATE_BASE = 0.12
 LUNCH_MULTIPLIER = 2.5
 
-SERVICE_RATE = 1/2  # mean 2 minutes
+# service rate (mean 2 minutes)
+SERVICE_RATE = 1/2
 
+# max acceptable wait (minutes)
 QUEUE_LIMIT = 8

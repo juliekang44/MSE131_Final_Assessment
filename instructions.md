@@ -9,10 +9,6 @@ python microwave_model/experiments.py
 3. Run sensitivity analysis
 python microwave_model/sensitivity.py
 
-Outputs
-results/scenario_results.csv
-results/sensitivity_results.csv
-results/sensitivity_plot.png
 
 Interpretation
 Look for:

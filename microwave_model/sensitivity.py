@@ -1,41 +1,30 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from simulation import simulate_building
-from parameters import MICROWAVES
+import os
+from simulation import run_simulation
+from parameters import *
 
-def run():
-    rates = np.linspace(0.05, 0.25, 8)
+OUTPUT_FILE = "results/microwave_results.txt"
 
-    rows = []
 
-    for rate in rates:
-        from parameters import ARRIVAL_RATE_BASE
-        ARRIVAL_RATE_BASE = rate
+def run_sensitivity():
 
-        for b, m in MICROWAVES.items():
-            r = simulate_building(m)
+    os.makedirs("results", exist_ok=True)
 
-            rows.append({
-                "arrival_rate": rate,
-                "building": b,
-                "Wq": r["Wq"]
-            })
+    multipliers = [1.0, 1.5, 2.0, 2.5]
 
-    df = pd.DataFrame(rows)
-    df.to_csv("results/sensitivity_results.csv", index=False)
+    with open(OUTPUT_FILE, "a") as f:
 
-    for b in df["building"].unique():
-        subset = df[df["building"] == b]
-        plt.plot(subset["arrival_rate"], subset["Wq"], label=b)
+        f.write("\n\nSENSITIVITY ANALYSIS\n")
+        f.write("=" * 60 + "\n")
 
-    plt.xlabel("Arrival rate λ")
-    plt.ylabel("Waiting time Wq")
-    plt.title("Sensitivity Analysis")
-    plt.legend()
+        for m in multipliers:
 
-    plt.savefig("results/sensitivity_plot.png")
-    plt.show()
+            global LUNCH_MULTIPLIER
+            LUNCH_MULTIPLIER = m
 
-if __name__ == "__main__":
-    run()
+            results = run_simulation()
+
+            f.write(f"\nLunch Multiplier: {m}\n")
+            f.write(f"Avg Wait: {results['avg_wait']:.2f}\n")
+            f.write(f"Avg Flow: {results['avg_flow']:.2f}\n")
+            f.write(f"Utilization: {results['utilization']:.2f}\n")
+            f.write(f"Bottleneck: {results['bottleneck']}\n")
