@@ -1,72 +1,53 @@
-University of Waterloo Engineering Microwave Simulation
+University of Waterloo Microwave Queue Simulation
 ============================================================
 
-BASELINE RESULTS
-----------------------------------------
-Average wait time: 0.30 minutes
-Average flow time: 2.34 minutes
-Average utilization: 0.20
-Bottleneck building: E5
+MONTE CARLO RESULTS (95% Confidence Intervals)
+--------------------------------------------------
+Replications: 50
 
-BUILDING RESULTS
-----------------------------------------
+SYSTEM METRICS
+Average Wait Time: 0.33 minutes
+95% CI: [0.31, 0.35]
+Std Dev: 0.07
+
+Average Flow Time: 2.33 minutes
+95% CI: [2.29, 2.36]
+Std Dev: 0.13
+
+Utilization: 0.19
+95% CI: [0.18, 0.19]
+Std Dev: 0.01
+
+
+BUILDING WAIT TIMES (with CI)
+--------------------------------------------------
 
 QNC
-  Wait time (Wq): 0.66
-  Flow time (W): 2.47
-  Queue length (Lq): 0.08
-  In system (L): 0.30
-  Utilization: 0.29
-  Throughput: 0.161
-  Served: 116
-  Balked: 1
+  Mean Wait: 0.89
+  95% CI: [0.82, 0.97]
+  Std Dev: 0.28
 
 CPH
-  Wait time (Wq): 0.00
-  Flow time (W): 2.08
-  Queue length (Lq): 0.00
-  In system (L): 0.25
-  Utilization: 0.08
-  Throughput: 0.161
-  Served: 116
-  Balked: 0
+  Mean Wait: 0.00
+  95% CI: [0.00, 0.00]
+  Std Dev: 0.00
 
 DWE
-  Wait time (Wq): 0.12
-  Flow time (W): 2.37
-  Queue length (Lq): 0.01
-  In system (L): 0.28
-  Utilization: 0.19
-  Throughput: 0.172
-  Served: 124
-  Balked: 0
+  Mean Wait: 0.10
+  95% CI: [0.07, 0.13]
+  Std Dev: 0.11
 
 E5
-  Wait time (Wq): 1.00
-  Flow time (W): 3.04
-  Queue length (Lq): 0.12
-  In system (L): 0.36
-  Utilization: 0.39
-  Throughput: 0.189
-  Served: 136
-  Balked: 7
+  Mean Wait: 0.90
+  95% CI: [0.81, 0.98]
+  Std Dev: 0.30
 
 E6
-  Wait time (Wq): 0.01
-  Flow time (W): 2.12
-  Queue length (Lq): 0.00
-  In system (L): 0.25
-  Utilization: 0.13
-  Throughput: 0.125
-  Served: 90
-  Balked: 0
+  Mean Wait: 0.09
+  95% CI: [0.07, 0.11]
+  Std Dev: 0.08
 
 E7
-  Wait time (Wq): 0.00
-  Flow time (W): 1.98
-  Queue length (Lq): 0.00
-  In system (L): 0.24
-  Utilization: 0.10
-  Throughput: 0.146
-  Served: 105
-  Balked: 0
+  Mean Wait: 0.01
+  95% CI: [0.01, 0.02]
+  Std Dev: 0.02

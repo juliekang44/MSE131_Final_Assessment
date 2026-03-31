@@ -40,8 +40,5 @@ L: average number in system
 Throughput: customers served
 
 
-Run baseline experiments:
+Run experiments:
 python microwave_model/experiments.py
-
-Run sensitivity analysis:
-python microwave_model/sensitivity.py
