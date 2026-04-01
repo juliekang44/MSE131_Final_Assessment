@@ -1,6 +1,6 @@
 # MSE131_Final_Assessment: UW Engineering Microwave Queue Simulation
 
-This project simulates microwave usage across University of Waterloo Engineering buildings, tracking **queues, waiting times, utilization, and bottlenecks**.
+This project simulates microwave usage across the University of Waterloo Engineering buildings, tracking **queues, waiting times, utilization, and bottlenecks**.
 
 ---
 
@@ -26,10 +26,10 @@ This project simulates microwave usage across University of Waterloo Engineering
 - **Exponential service times** with variable heating durations  
 - **Multiple servers** (microwaves) per building  
 - **Lunch rush spike** (11:30am–2pm)  
-- **Balking behavior**: students leave if queue exceeds limit  
+- **Balking behavior**: students leave if the queue exceeds the limit  
 - **Multiple customer types**: fast and slow users, priority customers  
 - **Random microwave breaks** to simulate downtime  
-- **Congestion effect**: slower service when queue is long  
+- **Congestion effect**: slower service when the queue is long  
 - **Stochastic Monte Carlo runs** for variability  
 - **Queue and utilization plotting** (color-coded bottlenecks)  
 - **Scenario comparisons**: Off-Peak, Peak Hours, Full Day  
@@ -40,7 +40,7 @@ This project simulates microwave usage across University of Waterloo Engineering
 ## **Extensions Added**
 
 1. Rush-hour arrivals (11:30am–2pm)  
-2. Balking if queue exceeds `QUEUE_LIMIT`  
+2. Balking if the queue exceeds QUEUE_LIMIT
 3. Multi-building queue system  
 4. Two customer types: fast/slow + priority  
 5. Random microwave breaks (downtime)  
@@ -64,5 +64,5 @@ This project simulates microwave usage across University of Waterloo Engineering
 ## **Outputs**
 
 - TXT reports per scenario  
-- Queue vs hour plots (`PNG`)  
-- Utilization bar charts highlighting bottlenecks
+- Queue vs hour plots (PNG)  
+- Utilization bar charts highlighting bottlenecks (PNG)
