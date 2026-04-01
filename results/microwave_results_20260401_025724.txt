@@ -1,0 +1,52 @@
+UW Engineering Microwave Queue Simulation - Peak Hours (11:30am–2pm)
+============================================================
+
+Building: QNC
+ - Average Wait Time (Wq): 2.69 min
+ - Average Flow Time (W): 4.61 min
+ - Utilization: 0.30
+ - Throughput (served): 56
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+Building: CPH
+ - Average Wait Time (Wq): 0.00 min
+ - Average Flow Time (W): 1.72 min
+ - Utilization: 0.05
+ - Throughput (served): 41
+ - Peak Queue Length: 2
+ - Students Balked: 0
+
+Building: DWE
+ - Average Wait Time (Wq): 0.03 min
+ - Average Flow Time (W): 2.31 min
+ - Utilization: 0.13
+ - Throughput (served): 40
+ - Peak Queue Length: 2
+ - Students Balked: 0
+
+Building: E5
+ - Average Wait Time (Wq): 0.74 min
+ - Average Flow Time (W): 2.27 min
+ - Utilization: 0.22
+ - Throughput (served): 52
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+Building: E6
+ - Average Wait Time (Wq): 0.54 min
+ - Average Flow Time (W): 3.34 min
+ - Utilization: 0.19
+ - Throughput (served): 49
+ - Peak Queue Length: 2
+ - Students Balked: 0
+
+Building: E7
+ - Average Wait Time (Wq): 0.00 min
+ - Average Flow Time (W): 2.68 min
+ - Utilization: 0.07
+ - Throughput (served): 29
+ - Peak Queue Length: 2
+ - Students Balked: 0
+
+============================================================

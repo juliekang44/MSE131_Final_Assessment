@@ -1,0 +1,52 @@
+Sensitivity Analysis - Arrival Rate: 0.08, Service Rate: 0.5
+============================================================
+
+Building: QNC
+ - Average Wait Time (Wq): 0.31 min
+ - Average Flow Time (W): 2.23 min
+ - Utilization: 0.18
+ - Throughput (served): 68
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+Building: CPH
+ - Average Wait Time (Wq): 0.00 min
+ - Average Flow Time (W): 1.71 min
+ - Utilization: 0.03
+ - Throughput (served): 54
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+Building: DWE
+ - Average Wait Time (Wq): 0.00 min
+ - Average Flow Time (W): 1.94 min
+ - Utilization: 0.08
+ - Throughput (served): 61
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+Building: E5
+ - Average Wait Time (Wq): 1.35 min
+ - Average Flow Time (W): 3.97 min
+ - Utilization: 0.23
+ - Throughput (served): 62
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+Building: E6
+ - Average Wait Time (Wq): 0.00 min
+ - Average Flow Time (W): 2.35 min
+ - Utilization: 0.07
+ - Throughput (served): 43
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+Building: E7
+ - Average Wait Time (Wq): 0.00 min
+ - Average Flow Time (W): 2.04 min
+ - Utilization: 0.08
+ - Throughput (served): 87
+ - Peak Queue Length: 1
+ - Students Balked: 0
+
+============================================================
