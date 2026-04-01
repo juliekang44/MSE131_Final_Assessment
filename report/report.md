@@ -69,8 +69,8 @@
 
 # 9. AI Usage Statement
 
-- AI tools such as ChatGPT were used as a tutor for brainstorming, debugging, and explaining code. The student reviewed and revised all code, logic, and results.
-- AI was not used to produce any final outputs or reports. The student ensured all results were correct.
+- AI tools such as ChatGPT were used as a tutor for brainstorming, debugging, and explaining code. I reviewed and revised all code, logic, and results.
+- AI was not used to produce any final outputs or reports. I ensured all results were correct.
 
 ---
 

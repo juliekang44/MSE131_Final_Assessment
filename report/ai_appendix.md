@@ -10,15 +10,15 @@ This appendix documents all major AI usage during the project. The AI (ChatGPT) 
 |---|--------|-----------------|-------------------------|
 | 1 | "How would I begin a Python microwave queue simulation for multiple buildings with varying microwaves?" | Initial code skeleton: Poisson arrivals, exponential service, single server example | Made a system that reflects the microwaves in the UW Engineering buildings, also redirecting the demand from buildings with no microwaves to closest buildings |
 | 2 | "Add lunch rush arrivals and peak hours" | Suggested multiplying arrival rate during specified times | Accounted for lunch time demand from 11:30am–2:00pm using LUNCH_MULTIPLIER. User can choose a window of time and stochastic arrivals are verified with np.random.exponential |
-| 3 | "Implement balking behavior if queue exceeds a certain length" | Example function to drop customers if queue > limit | created QUEUE_LIMIT which tracks the number of students who balked per building. The .txt report and .png plots include balked counts |
+| 3 | "Implement balking behavior if queue exceeds a certain length" | Example function to drop customers if queue > limit | Created QUEUE_LIMIT which tracks the number of students who balked per building. The .txt report and .png plots include balked counts |
 | 4 | "Make a scenario comparison and sensitivity analysis framework" | Example of looping through parameters and generating results table | experiments.py has three scenarios: Off-Peak, Peak, Full Day. sensitivity.py shows varying ARRIVAL_RATE_BASE and SERVICE_RATE. All the results are included in the output and automatic figure saving with timestamps |
 | 5 | "Add queue length vs time plotting and utilization bar charts" | Plotting functions using matplotlib | Added plotting for all buildings, hourly aggregation, color-coded bottlenecks; red bars indicate highest utilization; verified labels, legends, and readability |
 | 6 | "Explain Poisson arrivals and exponential service times" | Concept explanation | Reworded concept in report.md to tie course concepts together, such as capacity, bottleneck, utilization, waiting time, single vs multiple lines |
 | 7 | "Make project A++ worthy with extensions" | Suggested: rush-hour arrivals, balking, multiple servers, stochastic runs, plots | Used ideas to create strong extensions: rush hours, balking, two customer types (fast/slow, priority), random microwave breaks, congestion effect, multi-building queues, stochastic Monte Carlo runs |
 | 8 | "How to randomize outputs for each run" | Introduced numpy.random with optional seeds | Removed fixed seed for stochastic Monte Carlo so that each run produces different reports and plots depending on user's choice |
-| 9 | "Which metrics to include in microwave queue simulation" | Wq, W, Lq, L, throughput, utilization | Added peak queue length, balked students, per-hour statistics, bottleneck identification; included in reports and plots |
+| 9 | "Which metrics to include in microwave queue simulation" | Wq, W, Lq, L, throughput, utilization | Added peak queue length, balked students, per-hour statistics, bottleneck identification |
 | 10 | "How to write a transparent AI usage statement and appendix" | Draft AI policy | Helped revise and clarify that AI was a tutor and created a detailed ai report to reflect that all code, results, and report reviewed and finalized |
-| 11 | "Handle multiple time windows (Off-Peak, Peak, Full Day)" | Example logic using if/else | adjusted arrival rates dynamically per window and queue and utilization plots respect time window for experiments.py |
+| 11 | "Handle multiple time windows (Off-Peak, Peak, Full Day)" | Example logic using if/else | Adjusted arrival rates dynamically per window and queue and utilization plots respect time window for experiments.py |
 | 12 | "Save results with timestamps in filename" | Example using datetime.now() | Integrated into experiments.py and sensitivity.py for unique outputs per run |
 | 13 | "Incorporate priority customers and congestion effects" | Suggested modifying service time under queue conditions | Priority service and slower service when queue > threshold, this affects flow time and waiting time metrics |
 | 14 | "Add random microwave breaks / downtime" | Example downtime code snippet | Added break probability per server and tracked active time vs total available. This is updated in the utilization and bottleneck calculation |
@@ -38,8 +38,8 @@ This appendix documents all major AI usage during the project. The AI (ChatGPT) 
 
 ## 3. Student Revision & Verification Process
 
-- All AI suggestions were **rewritten and validated in Python**.  
-- Additional features added **beyond AI output**:  
+- All AI suggestions were rewritten and validated in Python.  
+- Additional features added beyond AI output:  
   - Balking count tracking per building  
   - Hourly queue aggregation for plots  
   - Random microwave breaks / downtime  
@@ -56,5 +56,5 @@ This appendix documents all major AI usage during the project. The AI (ChatGPT) 
 - AI was used transparently and responsibly, strictly as a tutor.  
 - I retain full responsibility for all submitted work.  
 - Major prompts, outputs, and revisions are documented here.  
-- No outputs were copied blindly; all were reviewed, modified, and adapted for UW building simulation requirements.  
+- No outputs were copied blindlyk, all were reviewed, modified, and adapted for UW building simulation requirements.  
 - This satisfies course requirements for AI transparency.
